@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --app-font-scale: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #F8F8F5;
+  color: #1A1C20;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessible focus states for keyboard/senior accessibility */
+:focus-visible {
+  outline: 3px solid #3730A3;
+  outline-offset: 3px;
+}
+
+/* Atmospheric Gradients */
+.glow-subtle {
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.09) 0%, rgba(248, 248, 245, 0) 70%);
+}
+
+.glow-card {
+  background: radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.08) 0%, transparent 60%);
+}
+
+.glow-dark {
+  background: radial-gradient(circle at 50% 30%, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

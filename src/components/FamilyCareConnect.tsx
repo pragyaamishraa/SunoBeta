@@ -11,15 +11,15 @@ interface FamilyCareConnectProps {
 const DEFAULT_CONTACTS: TrustedContact[] = [
   {
     id: '1',
-    name: 'Pragya Mishra (Daughter)',
-    phoneNumber: '+91 93364 29982',
+    name: 'Priya Sharma (Daughter)',
+    phoneNumber: '+91 98765 43210',
     relation: 'Daughter',
   },
   {
     id: '2',
-    name: 'Santosh Mishra (Husband)',
-    phoneNumber: '+91 94155 68099',
-    relation: 'Husband',
+    name: 'Rajesh Sharma (Family Helper)',
+    phoneNumber: '+91 98765 12345',
+    relation: 'Family Helper',
   },
 ];
 
@@ -33,11 +33,11 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
-          // If stored contacts only contained old demo contacts Rohan/Priya, upgrade to Pragya & Santosh
-          const hasOldData = parsed.some((c: TrustedContact) => 
-            c.name?.includes('Rohan') || c.name?.includes('Priya')
+          // Upgrade any stored contacts to ensure clean, synthetic demo defaults
+          const isModernDemo = parsed.every((c: TrustedContact) => 
+            c.phoneNumber?.startsWith('+91 98765')
           );
-          if (hasOldData) {
+          if (!isModernDemo) {
             return DEFAULT_CONTACTS;
           }
           if (Array.isArray(parsed) && parsed.length > 0) {
@@ -95,7 +95,7 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
 
   const handleResetDefaults = () => {
     setContacts(DEFAULT_CONTACTS);
-    speechManager.speak('Reset contacts to daughter Pragya Mishra and husband Santosh Mishra.');
+    speechManager.speak('Reset contacts to default family helpers.');
   };
 
   const handleTriggerSOS = (contact: TrustedContact) => {
@@ -129,7 +129,7 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
             Family Care Connect
           </h2>
           <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
-            One-touch check-in with your daughter Pragya, husband Santosh, or verified emergency helplines.
+            One-touch check-in with your daughter, family helper, or verified emergency helplines.
           </p>
         </div>
 
@@ -256,7 +256,7 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
                 <label className="block text-xs font-semibold text-stone-700 mb-1">Full Name</label>
                 <input
                   type="text"
-                  placeholder="e.g. Pragya Mishra"
+                  placeholder="e.g. Priya Sharma"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   className="w-full p-2.5 rounded-xl border border-stone-300 text-sm bg-white font-medium text-stone-900"
@@ -267,7 +267,7 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
                 <label className="block text-xs font-semibold text-stone-700 mb-1">Mobile Number</label>
                 <input
                   type="tel"
-                  placeholder="e.g. 9336429982"
+                  placeholder="e.g. 9876543210"
                   value={newPhone}
                   onChange={(e) => setNewPhone(e.target.value)}
                   className="w-full p-2.5 rounded-xl border border-stone-300 text-sm bg-white font-medium text-stone-900"
@@ -278,7 +278,7 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
                 <label className="block text-xs font-semibold text-stone-700 mb-1">Relationship</label>
                 <input
                   type="text"
-                  placeholder="e.g. Daughter / Husband"
+                  placeholder="e.g. Daughter / Family Helper"
                   value={newRelation}
                   onChange={(e) => setNewRelation(e.target.value)}
                   className="w-full p-2.5 rounded-xl border border-stone-300 text-sm bg-white font-medium text-stone-900"
@@ -306,7 +306,7 @@ export const FamilyCareConnect: React.FC<FamilyCareConnectProps> = ({
         <button
           onClick={handleResetDefaults}
           className="inline-flex items-center space-x-1.5 text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors"
-          title="Reset to Pragya Mishra and Santosh Mishra"
+          title="Reset to default family contacts"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset Family Defaults</span>

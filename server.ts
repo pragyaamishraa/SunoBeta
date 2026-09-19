@@ -13,6 +13,50 @@ const PORT = 3000;
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// Security Response Headers Middleware (OWASP Secure Coding Standards)
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  next();
+});
+
+// In-Memory Token Bucket Rate Limiter for API Endpoints (OWASP A04 Denial of Service Prevention)
+const requestTracker = new Map<string, { count: number; resetTime: number }>();
+function apiRateLimiter(maxRequests = 90, windowMs = 60000) {
+  return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const ip = req.ip || req.socket.remoteAddress || "global";
+    const now = Date.now();
+    const tracker = requestTracker.get(ip);
+    if (!tracker || now > tracker.resetTime) {
+      requestTracker.set(ip, { count: 1, resetTime: now + windowMs });
+      return next();
+    }
+    tracker.count++;
+    if (tracker.count > maxRequests) {
+      return res.status(429).json({
+        error: "Too many requests. Please take your time, there is no hurry.",
+        retryAfterMs: tracker.resetTime - now,
+      });
+    }
+    next();
+  };
+}
+
+// OWASP LLM01 - Indirect Prompt Injection Sanitizer
+function sanitizePromptInput(input: string, maxLen = 4000): string {
+  if (!input || typeof input !== "string") return "";
+  return input
+    .slice(0, maxLen)
+    .replace(/"""/g, "'''")
+    .replace(/```/g, "'''")
+    .replace(/system\s*instruction/gi, "[user text]")
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+}
+
+// Apply rate limiter to all /api routes
+app.use("/api", apiRateLimiter(90, 60000));
+
 // Lazy GoogleGenAI Initialization
 let aiClient: GoogleGenAI | null = null;
 function getAIClient(): GoogleGenAI | null {
@@ -144,8 +188,8 @@ app.post("/api/analyze-screen-or-message", async (req, res) => {
     });
   }
 
-  // Safe bounds check
-  const sanitizedContent = rawContent.slice(0, 4000);
+  // Safe bounds check with prompt injection sanitization
+  const sanitizedContent = sanitizePromptInput(rawContent, 4000);
 
   const systemInstruction = `You are "Suno Beta", a loving, respectful, patient digital companion and scam protector for senior citizens (grandparents and elders).
 Your job is to analyze any confusing message, SMS, email, screenshot, dialog box, or link that a senior received.
@@ -159,7 +203,7 @@ GUIDELINES FOR YOUR RESPONSE:
 3. Provide a safety score from 0 (guaranteed scam) to 100 (completely safe).
 4. Give a clear, reassuring headline.
 5. Explain in plain English what this message or screenshot is actually asking or showing without any tech jargon.
-6. Provide concrete, reassuring next steps (e.g. "Do NOT click the blue link", "Delete the message", "Call your daughter Pragya or husband Santosh").
+6. Provide concrete, reassuring next steps (e.g. "Do NOT click the blue link", "Delete the message", "Call your daughter or trusted family helper").
 7. Highlight key red flags or reassuring points in plain words.
 8. Provide a spoken audio script (warm, clear, conversational 2-3 sentences to read aloud).
 
@@ -224,7 +268,7 @@ Do not enclose in markdown code fences if possible, or use standard raw json.`;
 
     // Provide an intelligent, high-quality rule-based fallback if API key is missing or quota exhausted
     const isLikelyScam =
-      /otp|bank|kyc|block|suspend|lottery|prize|winner|password|debit|credit|cvv|urgent|pan|link|click here|apk|install|electricity.*cut/i.test(
+      /otp|bank|kyc|block|suspend|lottery|prize|winner|password|debit|credit|cvv|urgent|pan|link|click here|apk|install|electricity|disconnect|power.*cut/i.test(
         sanitizedContent
       );
 
@@ -296,7 +340,7 @@ app.post("/api/ask-suno", async (req, res) => {
 
   const targetLangName = LANGUAGE_NAMES[language] || "English";
 
-  const systemInstruction = `You are "Suno Beta", a caring, respectful, patient digital companion specifically built for senior citizens (grandparents and elders like Mradula Mishra).
+  const systemInstruction = `You are "Suno Beta", a caring, respectful, patient digital companion specifically built for senior citizens (grandparents and elders).
 The word "Beta" means child or younger helper in Hindi/Urdu, and "Suno" means listen. You speak like a dedicated, loving grandson or granddaughter who is delighted to help their grandparent navigate technology without feeling hurried or foolish.
 
 CRITICAL MULTILINGUAL REQUIREMENT:
@@ -608,14 +652,23 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+    // Serve static assets with high-efficiency caching
+    app.use(express.static(distPath, { maxAge: "1d", etag: true }));
     app.get("*", (_req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
   }
 
+  // Global Error Handler - Never leak stack traces to client (OWASP A05)
+  app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    console.error("Internal Server Error:", err?.message || err);
+    res.status(500).json({
+      error: "A temporary error occurred. Suno, Beta is still here to help you safely.",
+    });
+  });
+
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Suno Beta server running on http://0.0.0.0:${PORT}`);
+    console.log(`Suno, Beta server running on http://0.0.0.0:${PORT}`);
   });
 }
 

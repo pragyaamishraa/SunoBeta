@@ -79,14 +79,14 @@ export const SpeakToAiModal: React.FC<SpeakToAiModalProps> = ({
     en: [
       { label: 'Check electricity bill', prompt: 'Check my electricity bill and explain if it is safe to pay' },
       { label: 'Verify bank SMS', prompt: 'Someone sent an SMS asking for my bank OTP. Is this a scam?' },
-      { label: 'Send WhatsApp photo', prompt: 'How do I send photos of my garden to my daughter Pragya on WhatsApp?' },
-      { label: 'Call family contact', prompt: 'Call my daughter Pragya Mishra or husband Santosh Mishra' },
+      { label: 'Send WhatsApp photo', prompt: 'How do I send photos of my garden to my daughter on WhatsApp?' },
+      { label: 'Call family contact', prompt: 'Call my daughter or family helper' },
     ],
     hi: [
       { label: 'बिजली बिल की जांच करें', prompt: 'मेरा बिजली बिल चेक करो और बताओ क्या इसे भरना सुरक्षित है?' },
       { label: 'बैंक संदेश की जांच', prompt: 'मुझे बैंक से ओटीपी मांगने का मैसेज आया है, क्या यह धोखा है?' },
-      { label: 'व्हाट्सएप फोटो भेजें', prompt: 'व्हाट्सएप पर बेटी प्रज्ञा को बगीचे की फोटो कैसे भेजूं?' },
-      { label: 'परिवार से संपर्क', prompt: 'मेरी बेटी प्रज्ञा मिश्रा या पति संतोष मिश्रा से बात कराओ' },
+      { label: 'व्हाट्सएप फोटो भेजें', prompt: 'व्हाट्सएप पर बेटी को बगीचे की फोटो कैसे भेजूं?' },
+      { label: 'परिवार से संपर्क', prompt: 'मेरी बेटी या परिवार के सहायक से बात कराओ' },
     ],
     bn: [
       { label: 'বিদ্যুৎ বিল পরীক্ষা', prompt: 'আমার বিদ্যুৎ বিল পরীক্ষা করে বলো এটা দেওয়া নিরাপদ কিনা' },
@@ -200,8 +200,8 @@ export const SpeakToAiModal: React.FC<SpeakToAiModalProps> = ({
 
     // Detect actionable senior intents (e.g. check bill, call family, emergency, scam check)
     const lower = trimmed.toLowerCase();
-    if (lower.includes('call') || lower.includes('phone') || lower.includes('फोन') || lower.includes('कॉल') || lower.includes('प्रज्ञा') || lower.includes('सन्तोष') || lower.includes('সন্তোষ') || lower.includes('family')) {
-      setExecutedTaskNotice('Task recognized: Connecting with Family Care — Daughter Pragya Mishra & Husband Santosh Mishra');
+    if (lower.includes('call') || lower.includes('phone') || lower.includes('फोन') || lower.includes('कॉल') || lower.includes('family') || lower.includes('daughter') || lower.includes('helper')) {
+      setExecutedTaskNotice('Task recognized: Connecting with Family Care — Daughter Priya & Family Helper');
     } else if (lower.includes('bill') || lower.includes('बिजली') || lower.includes('बिल') || lower.includes('বিল')) {
       setExecutedTaskNotice('Task recognized: Reviewing Domestic Electricity Bill (Due in 2 days)');
     } else if (lower.includes('scam') || lower.includes('otp') || lower.includes('धोखा') || lower.includes('পাসওয়ার্ড')) {

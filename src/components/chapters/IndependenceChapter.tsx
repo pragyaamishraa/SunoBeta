@@ -47,11 +47,11 @@ export const IndependenceChapter: React.FC<IndependenceChapterProps> = ({ t }) =
         </p>
 
         {/* 4 Pillars Layout */}
-        <div className="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+        <div className="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left items-stretch">
           {pillars.map((pillar, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-3xl bg-white border border-stone-300 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between"
+              className="p-6 rounded-3xl bg-white border border-stone-300 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between h-full"
             >
               <div>
                 <span className="text-xs font-mono font-bold text-indigo-700 block mb-2">

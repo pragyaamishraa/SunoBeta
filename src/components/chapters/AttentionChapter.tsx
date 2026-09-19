@@ -111,9 +111,9 @@ export const AttentionChapter: React.FC<AttentionChapterProps> = ({ onUnderstand
             </div>
 
             {/* Secondary Queued Items */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
               {/* Doctor Appointment */}
-              <div className="bg-white rounded-2xl p-5 border border-stone-300 shadow-2xs flex items-center justify-between">
+              <div className="bg-white rounded-2xl p-5 border border-stone-300 shadow-2xs flex items-center justify-between h-full">
                 <div className="flex items-center space-x-3.5">
                   <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center border border-indigo-200 shrink-0">
                     <Calendar className="w-5 h-5" />
@@ -127,13 +127,13 @@ export const AttentionChapter: React.FC<AttentionChapterProps> = ({ onUnderstand
                     </p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200">
+                <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200 shrink-0 ml-2">
                   Confirmed
                 </span>
               </div>
 
               {/* Bank Notification */}
-              <div className="bg-white rounded-2xl p-5 border border-stone-300 shadow-2xs flex items-center justify-between">
+              <div className="bg-white rounded-2xl p-5 border border-stone-300 shadow-2xs flex items-center justify-between h-full">
                 <div className="flex items-center space-x-3.5">
                   <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center border border-amber-200 shrink-0">
                     <ShieldCheck className="w-5 h-5" />
@@ -147,7 +147,7 @@ export const AttentionChapter: React.FC<AttentionChapterProps> = ({ onUnderstand
                     </p>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-stone-700 bg-stone-100 px-2 py-1 rounded-md border border-stone-200">
+                <span className="text-xs font-bold text-stone-700 bg-stone-100 px-2 py-1 rounded-md border border-stone-200 shrink-0 ml-2">
                   Reviewed
                 </span>
               </div>

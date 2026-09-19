@@ -43,11 +43,11 @@ export const TrustChapter: React.FC<TrustChapterProps> = ({ t }) => {
             {t.safeChainTitle}
           </span>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
             {steps.map((st, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-stone-950/80 border border-stone-800 flex flex-col justify-between"
+                className="p-5 rounded-2xl bg-stone-950/80 border border-stone-800 flex flex-col justify-between h-full"
               >
                 <div>
                   <span className="text-xs font-mono font-bold text-indigo-400 block mb-1">
@@ -71,35 +71,41 @@ export const TrustChapter: React.FC<TrustChapterProps> = ({ t }) => {
         </div>
 
         {/* Trust Examples Checklist */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-stone-900/60 border border-stone-800 space-y-2">
-            <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>Review Before Submitting</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <div className="p-6 rounded-2xl bg-stone-900/60 border border-stone-800 space-y-2 h-full flex flex-col justify-between">
+            <div>
+              <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm mb-2">
+                <CheckCircle2 className="w-5 h-5" />
+                <span>Review Before Submitting</span>
+              </div>
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
+                Every payment amount, recipient name, or form field is shown in 24px high-contrast typography before final submission.
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
-              Every payment amount, recipient name, or form field is shown in 24px high-contrast typography before final submission.
-            </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-stone-900/60 border border-stone-800 space-y-2">
-            <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>Confirm Sensitive Actions</span>
+          <div className="p-6 rounded-2xl bg-stone-900/60 border border-stone-800 space-y-2 h-full flex flex-col justify-between">
+            <div>
+              <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm mb-2">
+                <CheckCircle2 className="w-5 h-5" />
+                <span>Confirm Sensitive Actions</span>
+              </div>
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
+                Suno asks for explicit two-touch confirmation for any transaction above ₹500 or any setting that shares location.
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
-              Suno asks for explicit two-touch confirmation for any transaction above ₹500 or any setting that shares location.
-            </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-stone-900/60 border border-stone-800 space-y-2">
-            <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>Protect Personal Information</span>
+          <div className="p-6 rounded-2xl bg-stone-900/60 border border-stone-800 space-y-2 h-full flex flex-col justify-between">
+            <div>
+              <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm mb-2">
+                <CheckCircle2 className="w-5 h-5" />
+                <span>Protect Personal Information</span>
+              </div>
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
+                Your One-Time Passwords (OTPs) and account PINs are never stored, transmitted, or requested by Suno.
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
-              Your One-Time Passwords (OTPs) and account PINs are never stored, transmitted, or requested by Suno.
-            </p>
           </div>
         </div>
       </div>

@@ -8,7 +8,24 @@ export default defineConfig(() => {
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(process.cwd(), '.'),
+      },
+    },
+    build: {
+      target: 'esnext',
+      sourcemap: false,
+      cssMinify: true,
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+            if (id.includes('node_modules/lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('node_modules/motion')) {
+              return 'vendor-motion';
+            }
+          },
+        },
       },
     },
     server: {

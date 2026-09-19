@@ -139,7 +139,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onSelectSection, dailyTi
                   <div className="flex items-center space-x-3 text-xs sm:text-sm">
                     <span className="font-mono font-medium text-stone-400 w-12">16:30</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                    <span className="text-stone-700">WhatsApp Video Call with Pragya</span>
+                    <span className="text-stone-700">WhatsApp Video Call with Family</span>
                   </div>
                 </div>
               </div>
@@ -171,17 +171,17 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onSelectSection, dailyTi
           </div>
         </div>
 
-        {/* Secondary Action Cards (Refined & Restrained, Asymmetrical) */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* Secondary Action Cards (Uniform Alignment & Height) */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
           {/* Card 1: Check a message */}
           <button
             onClick={() => onSelectSection('scam-decoder')}
-            className="p-5 rounded-2xl bg-white border border-stone-200/80 hover:border-indigo-200 shadow-2xs hover:shadow-xs transition-all text-left group flex items-start space-x-4"
+            className="p-5 rounded-2xl bg-white border border-stone-200/80 hover:border-indigo-200 shadow-2xs hover:shadow-xs transition-all text-left group flex items-start space-x-4 h-full"
           >
             <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center shrink-0 group-hover:bg-indigo-50 group-hover:text-indigo-700 transition-colors">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <div>
+            <div className="flex-1">
               <h4 className="font-semibold text-stone-900 text-sm sm:text-base group-hover:text-indigo-700 transition-colors">
                 Check a message
               </h4>
@@ -194,12 +194,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onSelectSection, dailyTi
           {/* Card 2: Guided Steps */}
           <button
             onClick={() => onSelectSection('guides')}
-            className="p-5 rounded-2xl bg-white border border-stone-200/80 hover:border-indigo-200 shadow-2xs hover:shadow-xs transition-all text-left group flex items-start space-x-4"
+            className="p-5 rounded-2xl bg-white border border-stone-200/80 hover:border-indigo-200 shadow-2xs hover:shadow-xs transition-all text-left group flex items-start space-x-4 h-full"
           >
             <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center shrink-0 group-hover:bg-indigo-50 group-hover:text-indigo-700 transition-colors">
               <BookOpen className="w-5 h-5" />
             </div>
-            <div>
+            <div className="flex-1">
               <h4 className="font-semibold text-stone-900 text-sm sm:text-base group-hover:text-indigo-700 transition-colors">
                 Show me what to do
               </h4>
@@ -212,12 +212,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onSelectSection, dailyTi
           {/* Card 3: Ask Suno */}
           <button
             onClick={() => onSelectSection('ask-suno')}
-            className="p-5 rounded-2xl bg-white border border-stone-200/80 hover:border-indigo-200 shadow-2xs hover:shadow-xs transition-all text-left group flex items-start space-x-4"
+            className="p-5 rounded-2xl bg-white border border-stone-200/80 hover:border-indigo-200 shadow-2xs hover:shadow-xs transition-all text-left group flex items-start space-x-4 h-full"
           >
             <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center shrink-0 group-hover:bg-indigo-50 group-hover:text-indigo-700 transition-colors">
               <MessageSquare className="w-5 h-5" />
             </div>
-            <div>
+            <div className="flex-1">
               <h4 className="font-semibold text-stone-900 text-sm sm:text-base group-hover:text-indigo-700 transition-colors">
                 Talk to Beta
               </h4>

@@ -148,7 +148,7 @@ export const ScamDecoder: React.FC = () => {
 
   const handleCopyForFamily = () => {
     if (!result) return;
-    const summary = `*Suno Beta Safety Check for Mradula Mishra*\nVerdict: ${result.verdict.toUpperCase()}\nHeadline: ${result.headline}\nExplanation: ${result.plainEnglishMeaning}\nMessage: "${result.sourceText}"`;
+    const summary = `*Suno Beta Safety Check*\nVerdict: ${result.verdict.toUpperCase()}\nHeadline: ${result.headline}\nExplanation: ${result.plainEnglishMeaning}\nMessage: "${result.sourceText}"`;
     navigator.clipboard.writeText(summary);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
@@ -157,10 +157,10 @@ export const ScamDecoder: React.FC = () => {
   const handleWhatsAppAlertFamily = () => {
     if (!result) return;
     const summary = encodeURIComponent(
-      `Hello Pragya / Santosh, Suno Beta checked this message for me:\n*Verdict:* ${result.verdict.toUpperCase()}\n*Headline:* ${result.headline}\n*Meaning:* ${result.plainEnglishMeaning}\nPlease check this with me when you are free.`
+      `Hello, Suno Beta checked this message for me:\n*Verdict:* ${result.verdict.toUpperCase()}\n*Headline:* ${result.headline}\n*Meaning:* ${result.plainEnglishMeaning}\nPlease check this with me when you are free.`
     );
-    // Send to daughter Pragya Mishra: +91 93364 29982
-    const url = `https://wa.me/919336429982?text=${summary}`;
+    // WhatsApp sharing with family helper
+    const url = `https://wa.me/?text=${summary}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -414,7 +414,7 @@ export const ScamDecoder: React.FC = () => {
               </div>
             )}
 
-            {/* Actions Bar (Share with Pragya / Family) */}
+            {/* Actions Bar (Share with Family Helper) */}
             <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-stone-100">
               <div className="flex flex-wrap items-center gap-2">
                 <button
@@ -437,10 +437,10 @@ export const ScamDecoder: React.FC = () => {
                 <button
                   onClick={handleWhatsAppAlertFamily}
                   className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold transition-colors shadow-2xs"
-                  aria-label="Send check report to Pragya on WhatsApp"
+                  aria-label="Send check report to family helper on WhatsApp"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Send to Pragya (WhatsApp)</span>
+                  <span>Send to Family (WhatsApp)</span>
                 </button>
               </div>
 

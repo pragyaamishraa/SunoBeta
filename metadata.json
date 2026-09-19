@@ -1,6 +1,10 @@
 {
   "name": "Suno, Beta",
-  "description": "A GenAI-powered digital companion and safety shield designed specifically for senior citizens.",
-  "requestFramePermissions": ["microphone"],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "description": "Suno, Beta — Digital Companion & Safety Shield for Seniors. A GenAI-powered digital companion and safety shield designed specifically for senior citizens to navigate technology with confidence, warmth, and dignity.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
